@@ -1,3 +1,4 @@
+<div class="ewm_wr_list_wrapper">
 <div class="ewm_r_dark_background_review">
 
 	<div id="ewm_r_pop_address_fields">
@@ -13,13 +14,9 @@
 				<div class="ewm_r_worker_review_main">
 
 					<div>
-						
 						<label class="wr_lable">Review Title<span class ="ewm_wr_asteric" >*</span></label>
-
 						<input name = "ewm_r_review_title" 		id = "ewm_r_review_title" 		placeholder = "" required type="text" >
-
 						<span id = "ewm_r_review_title_message"> </span>
-
 					</div>
 
 					<br>
@@ -456,7 +453,7 @@
 					echo $post_id; 
 					
 					?>" name>
-						
+
 					<input type='submit' value = 'Post Review' id="ewm_submit_worker_review" >
 
 				</div>
@@ -477,4 +474,6 @@
 		</div>
 
 	</div>
+</div>
+
 </div>

@@ -1,26 +1,28 @@
 <?php
 
-$post_id = get_the_ID() ;
+$post_id = get_the_ID();
+
+echo $post_id;
 
 $args = [
-
-    'post_type'     => 'ewm_worker_review',
-
-    'numberposts'   => 300,
-
-    // 'post__in' => 'post_id',
-    
+    'post_type' => 'ewm_worker_review',
+    'numberposts' => 300,
+    'post_parent' => $post_id ,
+    'fields' => ['ID']
 ] ;
 
 $get_posts_args = get_posts( $args ) ;
 
-// foreach ( $get_posts_args as $post_type => $post_value ){ 
+var_dump( $get_posts_args );
+$arr_list_args = [];
 
-//    $post_meta_d = get_post_meta( $post_value->ID ) ; // , 'ewm_r_worker_name' ) ;
-
-// }
+foreach ( $get_posts_args as $post_type => $post_value ){ 
+    // $post_meta_d = get_post_meta( $post_value->ID ) ; // , 'ewm_r_worker_name' ) ;
+    $arr_list_args[$post_value->ID] = $post_value->post_author;
+}
 
 $get_posts_args_count = count( $get_posts_args );
+unset( $get_posts_args );
 
 ?>
 
@@ -85,45 +87,35 @@ $get_posts_args_count = count( $get_posts_args );
     
         <?php
 
-            foreach( $get_posts_args as $post_type => $post_value ){
+            foreach( $$arr_list_args as $post_k => $post_author_id ){
 
-                $post_meta_d        = get_post_meta( $post_value->ID ) ; // , 'ewm_r_worker_name' ) ;
+                $post_value_ID = $post_k ;
 
+                $post_meta_d        = get_post_meta( $post_k  ) ; // , 'ewm_r_worker_name' ) ;
                 $woo_c_post_id      = $post_value->ID ;
 
-                $manager_link       =  admin_url()."admin.php?page=ewm-r-new&ewm-review-id=" . $post_value->ID ;
-
-                $worker_name        = array_key_exists( 'ewm_r_worker_name' , $post_meta_d ) ? $post_meta_d["ewm_r_worker_name"][0] : '' ; // "required": 1
-
-                $job_description    = array_key_exists( 'ewm_r_job_description' , $post_meta_d ) ? $post_meta_d["ewm_r_job_description"][0] : '' ; // "required": 1
-
-                $value_post_author  = get_user_by( 'ID' , $post_value->post_author ) ;
-
+                $manager_link       = admin_url()."admin.php?page=ewm-r-new&ewm-review-id=" . $post_value->ID ;
+                $worker_name        = get_post_meta( $post_value_ID, 'ewm_r_worker_name' , true );
+                $job_description    = get_post_meta( $post_value_ID, 'ewm_r_job_description' , true );
+                $value_post_author  = get_user_by( 'ID' ,  $post_author_id ) ;
                 $author_name        = $value_post_author->user_login ;
-                
-                $city               = array_key_exists( 'ewm_r_city' , $post_meta_d ) ? $post_meta_d["ewm_r_city"][0] : '' ; // "required": 1
 
-                $state              = array_key_exists( 'ewm_r_state' , $post_meta_d ) ? $post_meta_d["ewm_r_state"][0] : '' ; // "required": 1
+                $city               = get_post_meta( $post_value_ID, 'ewm_r_city' , true );
+                $state              = get_post_meta( $post_value_ID,'ewm_r_state' , true );
+                $address            = get_post_meta( $post_value_ID, 'ewm_r_review_address' , true );
+                $review_place       = get_post_meta( $post_value_ID, 'ewm_r_review_place' , true );
 
-                $address            = array_key_exists( 'ewm_r_address' , $post_meta_d ) ? $post_meta_d["ewm_r_address"][0] : '' ; // "required": 1
+                $customer_name      = get_post_meta( $post_value_ID, 'ewm_r_customer_name' , true );
+                $review_title       = get_post_meta( $post_value_ID, 'ewm_r_review_title' , true );
+                $description        = get_post_meta( $post_value_ID, 'ewm_r_description' , true );
+                $star_rating        = get_post_meta( $post_value_ID, 'ewm_r_star_rating' , true );
+                $related_page_id    = get_post_meta( $post_value_ID, 'ewm_r_related_page_id' , true );
 
-                $review_place       = array_key_exists( 'ewm_r_review_place' , $post_meta_d ) ? $post_meta_d["ewm_r_review_place"][0] : '' ;
-                // "required": 0 / "type": "image"/ "return_format": "id" / "preview_size": "thumbnail" / "library": "uploadedTo" / "min_width": "" / 
-                // "min_height": "" / "min_size": "" / "max_width": 500 / "max_height": "" / "max_size": "" / "mime_types": ""
-
-                $customer_name      = array_key_exists( 'ewm_r_customer_name' , $post_meta_d ) ? $post_meta_d["ewm_r_customer_name"][0] : '' ; // "required": 1
-
-                $review_title       = array_key_exists( 'ewm_r_review_title' , $post_meta_d ) ? $post_meta_d["ewm_r_review_title"][0] : '' ; // "instructions": "Put a suitable title for your review" / "required": 1 / $value->post_title ;
-
-                $description        = array_key_exists( 'ewm_r_description' , $post_meta_d ) ? $post_meta_d["ewm_r_description"][0] : '' ; // "required": 1
-
-                $star_rating        = array_key_exists( 'ewm_r_star_rating' , $post_meta_d ) ? $post_meta_d["ewm_r_star_rating"][0] : '' ; // "required": 1
-
-                $related_page_id    = array_key_exists( 'ewm_r_related_page_id' , $post_meta_d ) ? $post_meta_d["ewm_r_related_page_id"][0] : '' ; // "required": 0
+                $ewm_r_review_date 	= get_post_meta( $post_value_ID, 'ewm_r_review_date' , true );
 
                 echo '<script type="text/javascript" >
 
-                ewm_r_post_date['. $post_value->ID .'] = {
+                ewm_r_post_date['. $post_value_ID .'] = {
                     
                     "woo_c_post_id" :       "'. $woo_c_post_id .' ",
                     "manager_link" :        " '. $manager_link .' ",
@@ -154,8 +146,8 @@ $get_posts_args_count = count( $get_posts_args );
 
 </table>
 
-<?php 
+<?php
 
-    // include dirname(__FILE__) . '/pop_up.php' ;
-
+    include dirname(__FILE__) . '/pop_up.php' ;
+    
 ?>

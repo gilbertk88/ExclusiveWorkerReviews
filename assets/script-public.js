@@ -152,40 +152,15 @@ jQuery(document).ready(function($) {
     function ewm_wr_send_data_to_server(){
 
         // show loading message
-
         // send data to server
-
-        /*
-            $('#ewm_r_review_title').val()
-            $('#ewm_r_description').val()
-            $('#ewm_r_customer_name').val()
-            $('#ewm_r_review_date').val()
-            $('#ewm_r_star_rating').val()
-            $('#ewm_r_review_address').val()
-            $('#ewm_r_street_address').val()
-            $('#ewm_r_address_city').val()
-            $('#ewm_r_address_state').val()
-            $('#ewm_r_address_zip').val()
-            $('#ewm_r_address_country').val()
-            $('#ewm_r_job_description').val()
-            $('#ewm_r_team_member').val()
-            $('#ewm_wr_category_dropdown').val()
-            $('#ewm_r_related_page_id').val()
-        */
-
         // show that the data is loading 
-
         $('#ewm_submit_worker_review').val('Saving review...');
 
         var form_data = new FormData() ;
 
         $("#ewn_r_work_review_next").html( "Sending..." ) ;
-        
         form_data.append( 'action' , 'ewm_r_add_update_review_details' ) ;
-
-        ewm_r_star_rating = $( '#ewm_r_star_rating' ).val()  / 2 ;
-
-        console.log( droppedFiles ) ;
+        ewm_r_star_rating = $( '#ewm_r_star_rating' ).val()  / 2 ; // console.log( droppedFiles ) ;
 
         form_data.append( 'ewm_r_review_title' , $('#ewm_r_review_title').val() );
         form_data.append( 'ewm_r_description' , $('#ewm_r_description').val() );
@@ -204,52 +179,32 @@ jQuery(document).ready(function($) {
         form_data.append( 'ewm_r_related_page_id' , $('#ewm_r_related_page_id').val() );
         form_data.append( 'ewm_r_post_id' , ewm_r_post_id );
         form_data.append( 'ewm_wr_img_file', droppedFiles[0] );
+        // form_data.append( 'ewm_r_post_parent', $('#ewm_r_post_parent').val() );
 
         jQuery.ajax( {
 
             url: ajax_object.ajaxurl,
-
             type: 'post',
-
             contentType: false,
-
             processData: false,
-
             data: form_data,
-
             success: function ( response ) {
-
                 console.log( response ) ;
-
                 response = JSON.parse( response ) ;
-
-                // append to the latest reviews
-                // hide loading
-
+                // append to the latest reviews // hide loading
                 $('#ewm_wr_notification_pop_up').show() ;
-
                 $('#ewm_wr_notification_pop_up_message').html( 'Congratulations! The review was successfully added<br><br><input type="submit" id="ewm_wr_notification_pop_up_message_ok" value="Okay">' );
-
                 $('#ewm_wr_notification_pop_up_message_ok').click(function () {
-
                     $('#ewm_wr_notification_pop_up').hide();
-
                     $('#ewm_wr_notification_pop_up_message').html('');
-
                 } )
 
                 $('#ewm_submit_worker_review').val( 'Submit Review' );
-                
                 //ewm_wr_clear_fields();
-
                 $('.ewm_r_review_list_container').prepend( ewm_wr_append_html( response.details.data ) );
-
             },
-
             error: function (response) {
-
                 console.log( response ) ;
-
             }
 
         } ) ;
@@ -277,6 +232,10 @@ jQuery(document).ready(function($) {
     
     } )
 
+    if(typeof ewm_wr_user_can_delete_worker_reviews == 'undefined'){
+        ewm_wr_user_can_delete_worker_reviews = false;
+    }
+
     function ewm_wr_edit_worker_reviews(){
 
         if( ewm_wr_user_can_delete_worker_reviews == false ){
@@ -291,7 +250,7 @@ jQuery(document).ready(function($) {
 
             $( '#ewm_wr_delete_box_'+current_box_id ).show() ;
 
-            $('#ewm_wr_whold_box_'+current_box_id).css( 'border','1px gray solid' ) ;
+            $('#ewm_wr_whold_box_'+current_box_id).css( 'border','1px lightgray solid' ) ;
 
         } ).mouseleave(function() {
 
@@ -323,32 +282,19 @@ jQuery(document).ready(function($) {
         jQuery.ajax( {
 
             url: ajax_object.ajaxurl,
-
             type: 'post',
-
             contentType: false,
-
             processData: false,
-
             data: form_data,
-
             success: function ( response ) {
-
-                console.log( response ) ;
-
+                // console.log( response ) ;
                 response = JSON.parse( response ) ;
-
                 // append to the latest reviews
                 $( '#ewm_wr_whold_box_' + current_review_box ).remove();
-
             },
-
             error: function (response) {
-
                 console.log( response ) ;
-
             }
-
         } ) ;
 
     } )

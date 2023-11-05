@@ -1,5 +1,10 @@
 <div id="ewm_wr_guide">
-	<h1> Setup Guide</h1>
+	
+	<center>
+		<h2> Exclusive Worker Review </h2>
+	</center>
+
+	<br><br>
 
 	<p>
 		The plugin helps you display worker reviews in the frontend. To display the worker reviews please follow the following instructions;
