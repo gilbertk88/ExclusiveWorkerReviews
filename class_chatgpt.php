@@ -17,7 +17,7 @@ function ewm_access_chatgpt( $args = [] ){
     $rand_number = rand( 30, 150 );
     $result = $client->completions()->create( [
         'model' => 'text-davinci-003',
-        'prompt' => 'write and spin a '.$rand_number.' word review about "' .$args['ewm_keyword']. '" The review needs to be from the point of view of the contractor and should have errors but has perfect spelling. It also needs sound like a human generated content',
+        'prompt' => 'write and spin a "' .$args['ewm_keyword']. '" word review about "' .$args['ewm_keyword']. '". The review needs to be from the point of view of the contractor. It should have incorrect english.They need to sound trustworthy.',
         'max_tokens' => 1600,
     ] );
 

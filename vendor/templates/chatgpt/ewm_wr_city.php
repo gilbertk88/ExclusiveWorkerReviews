@@ -34,10 +34,10 @@
 	.ewm_wr_close_city {
 		float: right;
 		margin: 3px 68px 3px 3px;
-		border-radius: 10px;
-		background-color: #f9f9f9 !important;
+		border-radius: 5px;
+		background-color: #ccc8 !important;
 		border: 0px solid #ccc;
-		padding: 15px;
+		padding: 10px 15px;
 		cursor: pointer;
 	}
 	.ewm_wr_city_title_wrap{
@@ -67,8 +67,8 @@
 		float: left;
 		width: 50%;
 		padding: 20px;
-		background: #8ac68d42;
-		border-radius: px;
+		background: #8ac68d24;
+		border-radius: 5px;
 		border: 0px solid #ccc5;
 		margin: 0px;
 		display: none;
@@ -99,7 +99,7 @@
 		border: 0px solid #feffaf;
 		background-color: #feffaf;
 		padding: 6px 15px;
-		border-radius: 10px;
+		border-radius: 5px;
 		margin-right: 5px;
 		color: #333;
 		cursor: pointer;
@@ -107,10 +107,10 @@
 	.ewm_wr_delete_single_c_item{
 		cursor: pointer;
 		float: right;
-		color: #000;
+		color: #fff;
 		background-color: #8ac68d;
 		padding: 6px 15px;
-		border-radius: 10px;
+		border-radius: 5px;
 		margin-right: 5px;
 	}
 	.ewm_wr_edit_area_right_menu{
@@ -121,9 +121,9 @@
 		float: right;
 		color: #333;
 		background: #fff;
-		border: 2px solid #8ac68d;
-		padding:10px;
-		border-radius: 10px;
+		border: 2px solid #8ac68d7d;
+		padding: 8px 10px;
+		border-radius: 5px;
 	}
 	.ewm_wr_save_single_b{
 		background: #fff ;
@@ -145,7 +145,7 @@
 		border: 0px;
 		color: #333;
 		padding: 10px 15px;
-		border-radius: 10px;
+		border-radius: 5px;
 		cursor: pointer;
 		margin-right: 80px;
 		border: 0px;

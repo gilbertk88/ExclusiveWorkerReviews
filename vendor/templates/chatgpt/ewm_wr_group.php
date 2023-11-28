@@ -67,10 +67,10 @@
 		float: left;
 		width: 50%;
 		padding: 20px;
-		background: #8ac68d42;
-		border-radius:;
+		background: #8ac68d12;
+		border-radius: 5px;
 		border: 0px solid #ccc5;
-		margin:;
+		margin: ;
 		display: none;
 	}
 	.ewm_wr_single_line_list_item_top{
@@ -98,7 +98,7 @@
 		border: 0px solid #ccc;
 		background-color: #feffaf;
 		padding: 6px 15px;
-		border-radius: 10px;
+		border-radius: 5px;
 		margin-right: 5px;
 		color: #333;
 		cursor: pointer;
@@ -106,10 +106,10 @@
 	.ewm_wr_delete_single_g_item{
 		cursor: pointer;
 		float: right;
-		color: #333;
+		color: #fff;
 		background-color: #8ac68d;
 		padding: 6px 20px;
-		border-radius: 10px;
+		border-radius: 5px;
 		margin-right: 5px;
 	}
 	.ewm_wr_edit_area_right_menu{
@@ -125,10 +125,10 @@
 		color: #333;
 		background: #fff;
 		color: #333;
-		padding: 10px;
-		border-radius: 10px;
+		padding: 5px 12px;
+		border-radius: 5px;
 		margin-top: 30px;
-		border: 2px solid #8ac68d;
+		border: 2px solid #8ac68d99;
 	}
 	.ewm_wr_save_single_b{
 		background: #fff;
@@ -150,11 +150,12 @@
 		border: 0px;
 		color: #333;
 		padding: 9px 20px;
-		border-radius: 10px;
+		border-radius: 5px;
 		cursor: pointer;
 		margin-right: 80px;
 		border: 0px;
 	}
+
 </style>
 <div class="ewm_wr_chat_group_outer_wrap">
 	<div class="ewm_wr_chat_group_inner_wrap">

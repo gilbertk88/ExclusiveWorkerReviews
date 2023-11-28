@@ -66,7 +66,6 @@
 	#gpt_ewm_r_description,
 	#gpt_ewm_r_customer_name,
 	#gpt_ewm_r_review_date,
-	#ewm_r_star_rating,
 	#gpt_ewm_r_review_address,
 	#gpt_ewm_r_address_city,
 	#gpt_ewm_r_address_state,
@@ -81,6 +80,10 @@
 		padding: 1px 10px;
 		border: 1px solid #ccc;
 		height: 30px;
+	}
+
+	#ewm_r_star_rating{
+		border-radius: 15px;
 	}
 
 	.gpt_ewm_wr_worker_review_img_{
@@ -172,10 +175,11 @@
 
 	.ewm_gpt_rate_display{
 		width: 90%;
-		background: #01b40014;
+		background: #d2000024;
 		margin-left: 3%;
-		border-radius: 20px;
+		border-radius: 5px;
 		margin-top: 10px;
+		color: #fff;
 	}
 
 	#gpt_ewm_wr_worker_review_img_d{

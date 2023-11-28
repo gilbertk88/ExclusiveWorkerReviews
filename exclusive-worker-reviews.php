@@ -82,6 +82,7 @@ function ewm_wr_load_admin_resources( $options = array() )
     wp_localize_script( 'ewm-wr-main-lib-uploader-js', 'ajax_object', array(
         'ajaxurl' => admin_url( 'admin-ajax.php' ),
     ) );
+    wp_enqueue_script('jquery-ui', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js', array('jquery'), '1.8.6');
 
     wp_enqueue_style( 'ewm-r-style_admin', plugins_url( basename( dirname( __FILE__ ) ) . '/assets/style-admin.css' ) );
 
@@ -108,7 +109,7 @@ function ewm_wr_load_public_resources( $options = array() )
 // Disable display of errors and warnings
 // define( 'WP_DEBUG_DISPLAY', false );
 
-@ini_set( 'display_errors', 0 );
+// @ini_set( 'display_errors', 0 );
 
 // Use dev versions of core JS and CSS files (only needed if you are modifying these core files)
 // define( 'SCRIPT_DEBUG', false );
@@ -782,10 +783,39 @@ function ewm_wr_schema_display() {
 </script>' ;
 }
 
+
+function ewm_wr_add_edit_cat( $args = array() )
+{
+    // "ewm_wr_cat_post_id":"12209","ewm_wr_category_f":"cat name","ewm_wr_action_type":"add"}
+    // if new create a new category // else edit the cat
+    $post_id = $args['ewm_wr_cat_post_id'];
+    $meta_key = 'ewm_front_cats';
+    $meta_value = $args['ewm_wr_category_f'];
+    $meta_arr_box = '';
+    
+    if ( $args['ewm_wr_action_type'] == 'add' ) {
+        $meta_arr_box = add_post_meta(
+            $post_id,
+            $meta_key,
+            $meta_value,
+            false
+        );
+    } else {
+        $meta_arr_box = update_post_meta(
+            $post_id,
+            $meta_key,
+            $meta_value,
+            $args['ewm_wr_action_type']
+        );
+    }
+    
+    return $meta_arr_box;
+}
+
 add_action( "wp_ajax_nopriv_ewm_wr_add_edit_category", "ewm_wr_add_edit_category" );
 add_action( "wp_ajax_ewm_wr_add_edit_category", "ewm_wr_add_edit_category" );
 function ewm_wr_add_edit_category()
-{
+{    
     ewm_wr_add_edit_cat( $_POST );
     echo  json_encode( $_POST ) ;
     wp_die();
@@ -851,10 +881,11 @@ function ewm_wr_update_group_item(){
 add_action( "wp_ajax_nopriv_ewm_wr_generate_review_list", "ewm_wr_generate_review_list" );
 add_action( "wp_ajax_ewm_wr_generate_review_list", "ewm_wr_generate_review_list" );
 function ewm_wr_generate_review_list(){ // $post_id = get_the_ID() ;
+
     $posts = get_posts( array( // 'numberposts'   => -1,
         'post_type'     => 'ewm_worker_review' , // 'ewm_worker_review',    // 'meta_key'      => 'ewm_r_related_page_id', // 'post_status' => 'active',
-        'post_parent'    => $_POST['post_id'],
-        'post_status' => 'publish',
+        'post_parent'   => $_POST['post_id'],
+        'post_status'   => 'publish',
         'posts_per_page'=> -1,
     ) );
 
@@ -863,7 +894,6 @@ function ewm_wr_generate_review_list(){ // $post_id = get_the_ID() ;
     $response_review_list = [];
 
     foreach( $posts as $post_type => $post_value ){
-
         $post_meta_d        = get_post_meta( $post_value->ID ) ; // , 'ewm_r_worker_name' ) ;
         $ewm_wr_post_id      = $post_value->ID ;
         $manager_link       =  admin_url()."admin.php?page=ewm-r-new&ewm-review-id=" . $post_value->ID ;
@@ -1579,6 +1609,12 @@ function gpt_footer_data_pp(){ // var_dump( get_post_meta( 4714 ) );
 }*/
 
 add_action( 'wp_footer', 'gpt_run_outstanding_schedule' );
+
+function gpt_dd_tt_ll(){
+    var_dump( get_post_meta( 5391 ) );
+}
+
+add_action( 'wp_footer', 'gpt_dd_tt_ll' );
 
 /*
 function ewm_wr_ff_ajax(){

@@ -255,7 +255,7 @@
 		color: #333 !important;
 	}
 	.ewm_wr_chat_outer_single_line{
-		width: 28%;
+		width: 45%;
 		float: left;
 		min-width: 200px;
 		padding: 2px 15px;
@@ -277,10 +277,10 @@
 	}
 	.ewm_wr_chat_manage_groups{
 		background: #feffaf;
-		color: #333;
-		border: 1px solid #feffaf;
+		color: #323232;
+		border: 1px solid yellowgreen;
 		padding: 8px 15px;
-		border-radius: 10px 15px;
+		border-radius: 5px;
 		cursor: pointer;
 		margin-top: 15px;
 		float: right;
@@ -304,12 +304,13 @@
 	}
 	.ewm_wr_chat_cat_inline{
 		background: #fff;
-		border-radius: 10px 15px;
+		border-radius: 5px;
 		float: left; /*margin: 5px;*/
 		padding: 10px 20px;
 		cursor: pointer;
 		color: #333;
 		min-width: 150px;
+		border: 2px solid rgb(225, 224, 224);
 	}
 	.ewm_wr_chat_title_group{
 		font-weight: initial;
@@ -324,9 +325,9 @@
 		background-color: #8ac68d21;
 	}
 	.ewm_wr_sing_group_edit{
-		border: 0px solid #3335;
-		border-radius: 10px;
-		padding: 8px 10px;
+		border: 1px solid greenyellow;
+		border-radius: 5px;
+		padding: 5px 15px;
 		background: #feffaf;
 		color: #333;
 		margin-left: 15px;
@@ -335,10 +336,10 @@
 	}
 	.ewm_wr_sing_group_delete{
 		border: 0px solid #8ac68d;
-		border-radius: 10px;
+		border-radius: 5px;
 		padding: 5px 18px;
 		background: #8ac68d;
-		color: #333;
+		color: #fff;
 		display: none;
 		cursor: pointer;
 	}
@@ -356,18 +357,18 @@
 	}
 	#ewm_wr_chatgpt_city{
 		float: left;
-		border-radius: 10px;
-		padding:3px 10px;
-		min-width: 50% ;
-		border:1px solid #d3cece;
+		border-radius: 5px;
+		padding: 3px 15px;
+		min-width: 50%;
+		border: 1px solid #d3cece;
 		margin-right: 15px;
 	}
 	#ewm_wr_chatgpt_cities{
 		float: left;
-		background-color: #8dc68c;
-		color: #333;
-		border-radius: 10px 15px;
-		padding: 8px 15px;
+		background-color: #323232;
+		color: #fff;
+		border-radius: 5px;
+		padding: 8px 12px;
 		border: 0px;
 		cursor: pointer;
 	}
@@ -393,17 +394,17 @@
 	}
 
 	.ewm_wr_autoselection_left{
-		width:45%;
-		float:left;
-		border:0px solid #ccc;
+		width: 45%;
+		float: left;
+		border: 0px solid #ccc;
 		margin-right: 10px;
-		padding:10px;
-		cursor:pointer;
-		border-radius: 10px 15px;
+		padding: 10px;
+		cursor: pointer;
+		border-radius: 5px;
 		background-color: #ccc2;
 		border: 2px solid #8EFE8D;
 		color: #333;
-        background: #8EFE8D;
+		background: #8EFE8D;
 	}
 
 	.ewm_wr_autoselection_right{

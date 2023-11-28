@@ -377,7 +377,7 @@ label {
   background-color: #fff;
   border-radius: 0px;
   font-size:;
-  color: #333;
+  color: #323232;
   overflow: auto;
   height: 50px;
 }
@@ -392,7 +392,7 @@ label {
 }
 
 .ewm_manage_l_items_edit > a {
-  color: #333;
+  color: #323232;
   /*padding: 5px 10px;
   text-decoration: none;
   border: 1px solid #ccc;
@@ -408,22 +408,22 @@ label {
 }
 
 .ewm_manage_l_items_edit, .ewm_manage_l_items_delete{
-  padding: 10px 15px;
+  padding: 5px 15px;
   cursor: pointer;
   float: left;
   background: #8EFE8D;
   margin-right: 5px;
-  border-radius: 10px 15px;
+  border-radius: 5px;
 }
 
 #ewm_review_add_cat{
   background-color: #8EFE8D;
-  color: #333;
+  color: #323232;
   float: right;
   margin: 5px 15px 50px 5px;
   border: 0px solid #cccbcb;
   padding: 10px 15px;
-  border-radius: 10px;
+  border-radius: 5px;
   cursor: pointer;
 }
 
@@ -440,7 +440,7 @@ label {
 
 .ewm_review_gen_chatgpt{
   background-color: #fff;
-  color: #333;
+  color: #323232;
   float: right;
   margin: 5px 15px 50px 5px;
   border: 2px solid #ccc;
@@ -453,19 +453,30 @@ label {
   background-color: #fff;
   color: green;
   float: right;
-  margin: 5px 15px 50px 5px;
-  border: 2px solid #0080007d;
-  padding: 10px 30px;
-  border-radius: 15px;
+  margin: 5px 15px 20px 5px;
+  border: 2px solid #0080004f;
+  padding: 8px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.ewm_review_settings_chatgpt_new{
+  background-color: #fff;
+  color: green;
+  float: right;
+  margin: 5px 15px 20px 5px;
+  border: 2px solid #0080004f;
+  padding: 8px 20px;
+  border-radius: 5px;
   cursor: pointer;
 }
 
 .ewm_manage_l_items_generate_chatgpt{
   padding: 5px 25px;
-  color: #333;
+  color: #323232;
   border: 1px solid #8EFE8D;
-  margin: 5px;
-  border-radius: 10px 15px;
+  margin-left: 5px;
+  border-radius: 5px;
   cursor: pointer;
   float: left;
   background: #8EFE8D;
@@ -473,7 +484,7 @@ label {
 
 #ewm_wr_main_input_fields{
   background-color: #fff;
-  border-radius: 30px;
+  border-radius: 15px;
   font-size: 15px;
   width: 50%;
   padding: 50px;
@@ -483,7 +494,7 @@ label {
 #ewm_wr_category_f{
   width: 100%;
   padding: 2px 20px;
-  border-radius: 20px;
+  border-radius: 5px;
   border: 1px solid lightgray;
 }
 
@@ -493,7 +504,7 @@ label {
   margin: 15px auto 0px auto;
   border: 0px solid #ccc;
   padding: 10px 30px;
-  border-radius: 15px;
+  border-radius: 5px;
   cursor: pointer;
 }
 
@@ -504,16 +515,17 @@ label {
 
 #ewm_wr_close_popup{
   float: right;
-  color: #333;
-  border-radius: 10px;
+  color: #323232;
+  border-radius: 5px;
   border: 0px #80808042 solid;
   padding: 10px 20px;
   cursor: pointer;
-  background: #ccc3;
+  background: #ccc9;
 }
 
 .ewm_wr_darkred{
   color:darkred;
+  padding: 5px 15px;
 }
 
 #ewm_wr_header_text{
@@ -556,7 +568,7 @@ width: 100%;
   color: #fff;
   border: 0px SOLID ORANGE;
   padding: 10px;
-  border-radius: 10px 15px;
+  border-radius: 5px;
   margin-top: 35px;
   cursor: pointer;
   border: 0px solid ;
@@ -592,8 +604,8 @@ width: 100%;
 }
 
 .ewm_wr_list_wrapper{
-overflow:auto;
-border-radius: 20px;
+  overflow:auto;
+  border-radius: 6px;
 }
 
 #ewm_r_pop_address_fields{
@@ -631,7 +643,7 @@ border-radius: 20px;
   padding: 4px; /* margin-top: 20px; */
   border-radius: 6px;
   border: 1px solid #80808073; /* font-size: 18px; */
-  color: gray;
+  color: #333;
 }
 
 #ewm_r_star_rating {
@@ -694,7 +706,8 @@ background-color:#fff;
 }
 
 .ewm_wr_remove_box{
-  background: #8EFE8D;
+  background: #8ac68d;
+  color: #fff !important;
 }
 .ewm_wr_edit_box{
   background:#feffaf;
@@ -703,10 +716,10 @@ background-color:#fff;
 .ewm_wr_delete_box{
   float: right;
   border: 0px solid #3334;
-  padding: 10px;
+  padding: 5px 10px;
   cursor: pointer;
-  color: #333;
-  border-radius: 10px;
+  color: #323232;
+  border-radius: 5px;
   margin-bottom: 10px;
   margin-right: 10px;
 }
@@ -1015,9 +1028,9 @@ input[type=range]::-webkit-slider-thumb:active {
 
 .wr_main_review_body{
   width: 90%;
-  border-radius: 20px;
+  border-radius: 5px;
   border: 0px solid lightgray;
-  background: #8ac68d33;
+  background: #8ac68d20;
   margin-bottom: 25px;
   overflow: auto;
   padding: 40px;
@@ -1053,7 +1066,7 @@ overflow: auto;
   float: left;
   font-size: 15px;
   background-color: #fff;
-  border-radius: 20px;
+  border-radius: 5px;
   padding: 30px;
   border: 1px solid #ccc9;
 }
@@ -1139,13 +1152,13 @@ font-size: 16px;
 color: gray;
 }
 .wr_review_rating_string{
-color: #333;
+color: #323232;
 font-size: 18px;
 width: 100%;
 overflow: auto;
 }
 .checked {
-color: #333;
+color: #323232;
 }
 .wr_review_stars_d{
 float:left;
@@ -1163,7 +1176,7 @@ font-size: 14px;
 .wr_review_customer_name{
 font-size: 14px;
 float: left;
-color: #333;
+color: #323232;
 }
 
 #ewm_wr_notification_pop_up{
@@ -1178,7 +1191,7 @@ display: none;
 }
 #ewm_wr_notification_pop_up_inner{
 background-color:#ffffff;
-color:#333;
+color:#323232;
 min-height: 100px;
 max-width: 500px;
 margin: auto;
@@ -1187,13 +1200,13 @@ border-radius:5px;
 
 #ewm_wr_notification_pop_up_close{
 float:right;
-color:#333;
+color:#323232;
 cursor: pointer;
 padding: 10px;
 }
 
 #ewm_wr_notification_pop_up_message{
-color:#333;
+color:#323232;
 font-size: large;
 padding: 5%;
 font-weight: bold;
@@ -1353,9 +1366,9 @@ input[type="submit"]:hover {
 
 #ewm_submit_worker_review{
   background: rgb(142, 254, 141);
-  color: #333;
+  color: #323232;
   padding: 10px 20px;
-  border: 0px solid #333;
+  border: 0px solid #323232;
   border-radius: 15px;
   margin-bottom: 30px;
 }
@@ -1363,8 +1376,8 @@ input[type="submit"]:hover {
 #ewm_r_work_review_form_{
   width: 90%;
   padding: 20px;
-  background: #8ac68d33;
-  border-radius: 10px;
+  background: #8ac68d1c;
+  border-radius: 5px;
   margin-top: 10px;
   margin-left: 10px;
 }

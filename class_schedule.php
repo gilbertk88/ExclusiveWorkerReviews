@@ -25,20 +25,24 @@ function gpt_process_single_schedule( $args = [] ) {
         'post_parent' => $gpt_main_review_id,
     ] ) ;
 
-    if( count( $gpt_new_citys ) > 0 ) {
-        $gpt_new_citys_d = get_post_meta( $gpt_new_citys[0]->ID ); // import img /*[ 'id' =>  $gpt_img_detail, 'url' => $gpt_img_detail_url ] */
+    $ewm_wr_chatgpt_city_id = get_post_meta( $gpt_main_review_id , 'ewm_wr_chatgpt_city' , true );
+
+    $gpt_new_citys_d = get_post_meta(  $ewm_wr_chatgpt_city_id );
+
+    // if( count( $gpt_new_citys ) > 0 ) {
+        $gpt_new_citys_d = get_post_meta( $ewm_wr_chatgpt_city_id ); //$gpt_new_citys[0]->ID ); // import img /*[ 'id' =>  $gpt_img_detail, 'url' => $gpt_img_detail_url ] */
         $ewm_r_address_country = $gpt_new_citys_d[ 'ewm_r_address_country' ][0] ;
         $ewm_r_address_city = $gpt_new_citys_d[ 'ewm_r_address_city' ][0] ;
         $ewm_r_address_state = $gpt_new_citys_d[ 'ewm_r_address_state' ][0] ;
         $ewm_r_address_zip = $gpt_new_citys_d[ 'ewm_r_address_zip' ][0] ;
         // 'ewm_r_review_place'    = $gpt_new_citys_d[ 'ewm_r_address_zip' ][0];
-    }
-    else{
+    //}
+    /*else{
         $ewm_r_address_country = '' ;
         $ewm_r_address_city = '' ;
         $ewm_r_address_state = '' ;
         $ewm_r_address_zip = '' ;
-    }
+    }*/
 
     $ewm_date = date( 'Y-m-d H:i:s' );
     $add_long = $ewm_r_address_city.', '.$ewm_r_address_state.', '.$ewm_r_address_country;
@@ -48,7 +52,8 @@ function gpt_process_single_schedule( $args = [] ) {
     }
 
     $tt_data = [
-        'ewm_r_review_title'    => $gpt_keyword,
+
+        'ewm_r_review_title'    => $gpt_keyword .' g',
         'ewm_r_worker_name'     => $gpt_schedule['ewm_wr_gpt_team_member'][0],
         'ewm_r_job_description' => $gpt_schedule['ewm_wr_gpt_job_description'][0],
         'ewm_r_value_post_author' => 1,
@@ -64,15 +69,18 @@ function gpt_process_single_schedule( $args = [] ) {
         'ewm_r_related_page_id' => $gpt_main_review_id, // 'ewm_r_post_id'         => $gpt_main_review_id,
         'ewm_r_review_submit'   => '',
         'group_parent_id'       => $gpt_schedule['group_parent_id'][0],
-        "ewm_r_review_address" => $add_long,
-        "ewm_r_street_address" => $add_long,
-        "ewm_r_address_city" => $ewm_r_address_city,
-        "ewm_r_address_state" => $ewm_r_address_state,
-        "ewm_r_address_zip" => $ewm_r_address_zip,
-        "ewm_r_team_member" => $gpt_schedule['ewm_wr_gpt_customer_name'][0],
+
+        "ewm_r_review_address"  => $add_long,
+        "ewm_r_street_address"  => $add_long,
+        "ewm_r_address_city"    => $ewm_r_address_city,
+        "ewm_r_address_state"   => $ewm_r_address_state,
+        "ewm_r_address_zip"     => $ewm_r_address_zip,
+
+        "ewm_r_team_member"     => $gpt_schedule['ewm_wr_gpt_customer_name'][0],
         "ewm_wr_category_dropdown" => $gpt_schedule['ewm_wr_gpt_category'],
-        "post_is_new" => '',
-        'ewm_r_review_date' => $ewm_date
+        "post_is_new"           => '',
+        'ewm_r_review_date'     => $ewm_date
+
     ] ;
 
     $args = gpt_r_add_listing_post_data( $tt_data ) ;
@@ -114,49 +122,42 @@ function ewm_is_daily_reschedule( $args = [] ) {
 }
 
 function ewm_get_city_details_based_on( $args = [] ){
-
+/*
     $gpt_new_city = get_posts( [
 		'post_type' => 'gpt_new_city',
 		'post_status' => 'active',
 		'post_parent' => $args['ewm_wr_main_review_page'],
         'fields' => 'ids'
 	] );
+*/
+    $gpt_main_review_id = $args['ewm_wr_main_review_page'] ;
+
+    $gpt_new_citys_id = get_post_meta( $gpt_main_review_id , 'ewm_wr_chatgpt_city' , true );
+
+    // $gpt_new_citys_d = get_post_meta( $gpt_new_citys_id );
 
     $gpt_new_city_arr = [];
 
-    if( count( $gpt_new_city ) == 0 ) {
-        
-        $gpt_new_city_arr['id'] = 0 ;
-        $gpt_new_city_arr['ewm_r_address_city'] = '-- ';
-		$gpt_new_city_arr['ewm_r_address_state'] = '-- ';
-		$gpt_new_city_arr['ewm_r_address_zip'] = '-- ';
-		$gpt_new_city_arr['ewm_r_address_country'] = '-- ';
-		$gpt_new_city_arr['ewm_wr_button_new_city_item'] = '-- ';
-        $gpt_new_city_arr['ewm_r_review_place'] = '-- ';
-
-    }
-    else {
-
-        $gpt_new_city_arr['id'] = $gpt_new_city['0'];
-        $gpt_new_city_arr['ewm_r_address_city'] = get_post_meta( $gpt_new_city['0'], 'ewm_r_address_city', true );
-		$gpt_new_city_arr['ewm_r_address_state'] = get_post_meta( $gpt_new_city['0'], 'ewm_r_address_state', true );
-		$gpt_new_city_arr['ewm_r_address_zip'] = get_post_meta( $gpt_new_city['0'], 'ewm_r_address_zip', true );
-		$gpt_new_city_arr['ewm_r_address_country'] = get_post_meta( $gpt_new_city['0'], 'ewm_r_address_country', true );
-		$gpt_new_city_arr['ewm_wr_button_new_city_item'] = get_post_meta( $gpt_new_city['0'], 'ewm_wr_button_new_city_item', true );
-        $gpt_new_city_arr['ewm_r_street_address'] = get_post_meta( $gpt_new_city['0'], 'ewm_wr_button_new_city_item', true );
-        $gpt_new_city_arr['ewm_r_review_place'] = get_post_meta( $gpt_new_city['0'], 'ewm_r_review_place', true );
+    //if( $gpt_new_citys_id > 0 ) {
+        $gpt_new_city_arr['id'] = $gpt_new_citys_id ;
+        $gpt_new_city_arr['ewm_r_address_city'] = get_post_meta( $gpt_new_citys_id , 'ewm_r_address_city', true );
+		$gpt_new_city_arr['ewm_r_address_state'] = get_post_meta( $gpt_new_citys_id , 'ewm_r_address_state', true );
+		$gpt_new_city_arr['ewm_r_address_zip'] = get_post_meta( $gpt_new_citys_id , 'ewm_r_address_zip', true );
+		$gpt_new_city_arr['ewm_r_address_country'] = get_post_meta( $gpt_new_citys_id , 'ewm_r_address_country', true );
+		$gpt_new_city_arr['ewm_wr_button_new_city_item'] = get_post_meta( $gpt_new_citys_id , 'ewm_wr_button_new_city_item', true );
+        $gpt_new_city_arr['ewm_r_street_address'] = get_post_meta( $gpt_new_citys_id , 'ewm_wr_button_new_city_item', true );
+        $gpt_new_city_arr['ewm_r_review_place'] = get_post_meta( $gpt_new_citys_id , 'ewm_r_review_place', true );
 
         // string details
         $gpt_new_city_arr['id'] = ( is_string( $gpt_new_city_arr['id'] ) && strlen( $gpt_new_city_arr['id'] ) > 0 ) ? $gpt_new_city_arr['id'] : '-- ' ;
         $gpt_new_city_arr['ewm_r_review_place'] =  ( is_string( $gpt_new_city_arr['ewm_r_review_place'] ) && strlen( $gpt_new_city_arr['ewm_r_review_place'] ) > 0 ) ? $gpt_new_city_arr['ewm_r_review_place'] : '-- ' ;
-        $gpt_new_city_arr['ewm_r_address_city'] = ( is_string( $gpt_new_city_arr['ewm_r_address_city'] ) && strlen( $gpt_new_city_arr['ewm_r_address_city'] ) > 0 ) ? $gpt_new_city_arr['ewm_r_address_city'] : ' -- ' ;
+        // $gpt_new_city_arr['ewm_r_address_city'] = ( is_string( $gpt_new_city_arr['ewm_r_address_city'] ) && strlen( $gpt_new_city_arr['ewm_r_address_city'] ) > 0 ) ? $gpt_new_city_arr['ewm_r_address_city'] : ' -- ' ;
 		$gpt_new_city_arr['ewm_r_address_state'] = ( is_string( $gpt_new_city_arr['ewm_r_address_state'] ) && strlen( $gpt_new_city_arr['ewm_r_address_state'] ) > 0 ) ? $gpt_new_city_arr['ewm_r_address_state'] : ' -- ' ;
 		$gpt_new_city_arr['ewm_r_address_zip'] = ( is_string( $gpt_new_city_arr['ewm_r_address_zip'] ) && strlen( $gpt_new_city_arr['ewm_r_address_zip'] ) > 0 ) ? $gpt_new_city_arr['ewm_r_address_zip'] : ' -- ' ;
 		$gpt_new_city_arr['ewm_r_address_country'] = ( is_string( $gpt_new_city_arr['ewm_r_address_country'] ) && strlen( $gpt_new_city_arr['ewm_r_address_country'] ) > 0 ) ? $gpt_new_city_arr['ewm_r_address_country'] : ' -- ' ;
 		$gpt_new_city_arr['ewm_wr_button_new_city_item'] = ( is_string( $gpt_new_city_arr['ewm_wr_button_new_city_item'] ) && strlen( $gpt_new_city_arr['ewm_wr_button_new_city_item'] ) > 0 ) ? $gpt_new_city_arr['ewm_wr_button_new_city_item'] : ' -- ';
         $gpt_new_city_arr['ewm_r_street_address'] = ( is_string( $gpt_new_city_arr['ewm_r_street_address'] ) && strlen( $gpt_new_city_arr['ewm_r_street_address'] ) > 0 ) ? $gpt_new_city_arr['ewm_r_street_address'] : ' -- ';
-
-    }
+    // }
 
     return $gpt_new_city_arr;
 
@@ -340,7 +341,7 @@ function ewm_delete_ending_schedules(){
 
     $wrgpt_schedule = get_posts( [
         'post_type' => 'wrgpt_schedule',
-        'post_status' => 'active', // 'post_parent' => $review_main_post , // main review page post
+        /*'post_status' => 'active', // 'post_parent' => $review_main_post , // main review page post
         'meta_query' => array(
             array(
                 'key'     => 'ewm_been_scheduled',
@@ -348,7 +349,7 @@ function ewm_delete_ending_schedules(){
                 'compare' => '==', // 'type' => 'DATETIME',
             ),
         ),
-        'posts_per_page'=> 2,
+        'posts_per_page'=> 2,*/
         'fields' => 'ids'
     ] );
 
@@ -382,7 +383,7 @@ function gpt_run_outstanding_schedule(){ // $review_main_post = 224;
     ] );
 
     $count_wrgpt_schedule = count( $wrgpt_schedule );
-    echo $count_wrgpt_schedule;
+    //echo $count_wrgpt_schedule;
 
     foreach( $wrgpt_schedule as $wrgpt_schedule_k => $wrgpt_schedule_v ){
         // var_dump( $wrgpt_schedule_v ); // var_dump( get_post_meta( $wrgpt_schedule_v ) ); // echo '<br><br><br>'; 
@@ -590,7 +591,7 @@ function ewm_wr_input_api_key_save(){
     }
 
     echo json_encode( [
-        'ewm_gpt_api_key' => $ewm_gpt_api_key,
+        // 'ewm_gpt_api_key' => $ewm_gpt_api_key,
         'post' => $_POST
     ] );
     

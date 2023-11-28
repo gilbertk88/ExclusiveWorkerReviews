@@ -1,5 +1,5 @@
 <style>
-	.ewm_wrchatgpt_background_main_gptset {
+	.ewm_wrchatgpt_background_main_gptset_new {
 		width: 100%;
 		height: 100%;
 		background-color: #33333350;
@@ -25,7 +25,7 @@
 		overflow: auto;
 	}
 
-	.ewm_wrchatgpt_background_inner_close_gptset {
+	.ewm_wrchatgpt_background_inner_close_gptset_new {
 		float: right;
 		margin: 3px 150px 3px 3px;
 		border-radius: 10px;
@@ -42,8 +42,10 @@
 	.ewm_wrchatgpt_l_key_section_gptset{
 		width: 80%;
 		padding: 35px;
+		border: 1px solid #32323240;
+		border-radius: 5px;
+		margin-top: 30px;
 	}
-
 	.ewm_wr_key_title_bold{
 		width: 100%;
 		padding: 0px 15px;
@@ -71,32 +73,37 @@
 
 </style>
 
-<div class="ewm_wrchatgpt_background_main_gptset">
+<div class="ewm_wrchatgpt_background_main_gptset_new">
 	<div class="ewm_wrchatgpt_background_inner_gptset">
 		<div class="ewm_wrchatgpt_menu_top">
-			<input type="button" value="Close[x]" class="ewm_wrchatgpt_background_inner_close_gptset">
+			<input type="button" value="Close[x]" class="ewm_wrchatgpt_background_inner_close_gptset_new">
 		</div>
 
 		<div class="ewm_wrchatgpt_l_key_section_gptset">
 
 			<div class="ewm_wr_key_title_bold" >
-				Chatgpt API Key
-			</div>
-			<div class="ewm_wr_key_input">
-				<?php
-					$ewm_gpt_api_key = get_option( 'ewm_gpt_api_key' );
-				?>
-				<input class="ewm_wr_input_api_key" type ="text" value="<?php echo $ewm_gpt_api_key ; ?>">
+				<h2>How to create a worker review page</h2>
 			</div>
 
 			<div class="ewm_wr_key_input">
-				<center>
-					<input class="ewm_wr_input_api_key_save" type ="button" value="Save ChatGPT Key">
-					<div class="ewm_wr_input_api_key_save_message"></div>
-				</center>
+				<p>
+
+					<b>The worker review plugin helps you display worker reviews using a shortcode. </b>
+					<br>
+					<br>
+
+					To display the worker reviews, follow the following instructions:
+
+				</p>
+
+				<ul class="ewm_wr_guide_ul">
+
+					<li class="ewm_wr_guide_li">Add the following shortcode to the desired page/post: <span class="ewm_wr_shortcode">[exclusive_worker_review]</span> </li>
+					<li class="ewm_wr_guide_li">After adding the shortcode, <a href="<?php echo get_admin_url().'admin.php?page=ewm-wr-chat-gpt'; ?>">Click Here</a> to edit the worker review.</li>
+				</ul>
+
 			</div>
 			
-
 		</div>
 
 	</div>
