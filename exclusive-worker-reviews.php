@@ -3,7 +3,7 @@
 /**
  * Plugin Name: Exclusive Worker Reviews (Premium)
  * Description: Provides the ability to add worker reviews that are SEO friendly.
- * Version: 1.2.1
+ * Version: 1.2.5
  * Update URI: https://api.freemius.com
  * Author: Exclusive web marketing
  * Author URI: https://exclusivewebmarketing.com/
@@ -99,25 +99,8 @@ function ewm_wr_load_public_resources( $options = array() )
     wp_enqueue_style( 'ewm-wr-style_public', plugins_url( basename( dirname( __FILE__ ) ) . '/assets/style-public.css' ) );
 }
 
-
-// Enable WP_DEBUG mode
-// define( 'WP_DEBUG', false );
-
-// Enable Debug logging to the /wp-content/debug.log file
-// define( 'WP_DEBUG_LOG', false );
-
-// Disable display of errors and warnings
-// define( 'WP_DEBUG_DISPLAY', false );
-
-// @ini_set( 'display_errors', 0 );
-
-// Use dev versions of core JS and CSS files (only needed if you are modifying these core files)
-// define( 'SCRIPT_DEBUG', false );
-
 ini_set('display_errors', 0 );
-
 ini_set('display_startup_errors', 0 );
-
 error_reporting(0);
 
 function ewm_r_add_listing_post_data( $args ){
@@ -518,10 +501,6 @@ function ewm_r_add_update_worker_review(){
         $ewm_wr_image_id = get_post_meta( $new_post_data[ 'post_id' ] , 'ewm_wr_img_file', true );
     }
 
-    // var_dump($new_post_data);
-    // var_dump($ewm_wr_image_id);
-    // wp_die();
-
     $new_post_data['args']['ewm_wr_img_file'] = $ewm_wr_image_id;
     ewm_r_add_listing_meta_d( $new_post_data );
     $post_meta_d = get_post_meta( $new_post_data[ 'post_id' ] ); // , 'ewm_r_worker_name' );
@@ -610,7 +589,6 @@ function ewm_ensure_page_is_listed(){
         // do nothing
     }
     else{
-        //!is_string( $ewm_wr_is_active ) || strlen( $ewm_wr_is_active ) == 0 ){
         // create meta information
         add_post_meta( $get_the_ID, 'ewm_wr_is_active' , 'true' );
     }
@@ -993,23 +971,6 @@ function ewm_wr_update_chatgpt_request(){ // all pages // single page >> // If p
 
     $ewm_wrchatgpt_page_id = $_POST['ewm_wrchatgpt_page_id'];
 
-    /*
-    $ewm_wrchatgpt_list = get_posts( [
-        'post_parent' => $_POST['ewm_wrchatgpt_page_id'],
-        'post_type' => 'ewm_gpt_gen',
-    ] );
-    */
-
-    // $_search_post_exists = false;
-
-    /*
-        if( is_array( $ewm_wrchatgpt_list ) ) {
-            if( count( $ewm_wrchatgpt_list ) > 0 ) { // update
-                $_search_post_exists = true;
-            }
-        }
-    */
-
     $_review_post_id = $_POST['ewm_wrchatgpt_page_id'];    // if( $_POST['ewm_wrchatgpt_search_id'] > 0 ) { // update
     $_post_id = $_POST['ewm_wrchatgpt_page_id'];
     $_review_post_id = $_POST['ewm_wrchatgpt_page_id'];
@@ -1019,22 +980,6 @@ function ewm_wr_update_chatgpt_request(){ // all pages // single page >> // If p
     update_post_meta( $ewm_wrchatgpt_page_id, 'ewm_wrchatgpt_group_list',  $_POST[ 'ewm_wrchatgpt_group_list' ] );
     update_post_meta( $_post_id, 'ewm_wr_chatgpt_instant',  $_POST[ 'ewm_wr_chatgpt_instant' ] );
     update_post_meta( $_post_id, 'ewm_wr_chatgpt_city',  $_POST[ 'ewm_wr_chatgpt_city' ] );
-
-    // }
-    //else{ // create new post
-    /*
-            $_post_data = [
-                'post_parent' => $_POST['ewm_wrchatgpt_page_id'],
-                'post_type' => 'ewm_gpt_gen',
-            ] ;
-            $_post_id = wp_insert_post( $_post_data );
-            add_post_meta(  $_post_id, 'ewm_wr_chatgpt_daily', $_POST['ewm_wr_chatgpt_daily'] , false ); // add_post_meta(  $_post_id, 'ewm_wr_chatgpt_number_of_reviews',  $_POST['ewm_wr_chatgpt_number_of_reviews'] , false );
-            add_post_meta(  $_post_id, 'ewm_wrchatgpt_page_id',  $_POST[ 'ewm_wrchatgpt_page_id' ] , false );
-            add_post_meta(  $ewm_wrchatgpt_page_id, 'ewm_wrchatgpt_group_list',  $_POST[ 'ewm_wrchatgpt_group_list' ] , false );
-            add_post_meta(  $_post_id, 'ewm_wr_chatgpt_instant',  $_POST[ 'ewm_wr_chatgpt_instant' ] , false );
-
-        }
-    */
 
     // if( $_POST[ 'ewm_wr_chatgpt_instant' ] == true ){ // var_dump( $_POST[ 'ewm_wr_chatgpt_instant' ] );
 
@@ -1056,11 +1001,6 @@ function ewm_wr_update_chatgpt_request(){ // all pages // single page >> // If p
                 'ewm_wr_chatgpt_daily' => $_POST[ 'ewm_wr_chatgpt_daily' ] 
             ] );
         }
-
-    // }
-    // if( $_POST[ 'ewm_wr_chatgpt_daily' ] == true ){
-        // ewm_wr_schedule_daily( $_review_post_id );
-    //} // schedule generation  // $search_post_id = ewm_wr_chatgpt_schedule_search_post( $_review_post_id ); // $_post_id // $_review_post_id
 
     echo  json_encode( [ // 'post'=> $_POST
         'post_id'=> $_post_id,
@@ -1213,17 +1153,6 @@ function ewm_gpt_populate_group(){ // $_POST['ewm_wr_group_id'] // ewm_gpt_popul
         'post_parent' => $_POST['ewm_wr_page_id'],
         'post_type' => 'gtpsearcht',
     ] );
-
-    /*
-        if( is_array( $post_list ) ) {
-            if(count($post_list) > 0) {
-                $post_id = $post_list[0]->ID;
-                $gpt_number_reviews_per_page = get_post_meta( $post_id , 'review_numb' );
-                $dpt_delete_past_worker_reviews_on_each_page = get_post_meta( $post_id , 'delete_past' );
-            }
-        }
-
-    */
 
     $gpt_select_group = explode( ',', get_post_meta( $_POST['ewm_wr_page_id'] , 'ewm_wrchatgpt_group_list', true ) );
     $ewm_wr_chatgpt_daily = get_post_meta( $_POST['ewm_wr_page_id'] , 'ewm_wr_chatgpt_daily', true );
@@ -1529,125 +1458,6 @@ include dirname( __FILE__ ) . '/class_chatgpt.php';
 include dirname( __FILE__ ) . '/class_city.php';
 include dirname( __FILE__ ) . '/class_schedule.php';
 
-
-/* add_shortcode('ewm_access_image_chat', 'ewm_access_image_chat') ; // gpt_run_schedule_data
-function gpt_wp_footer_list(){
-
-    // $review_main_post =  224;
-    $_post_data = [
-        'post_parent' => $review_main_post,
-        'post_type' => 'ewm_gpt_gen',
-        'post_status' => 'published',
-    ] ;
-
-    $_post_d = get_posts( $_post_data ); // add_post_meta(  $_post_id, 'ewm_wrchatgpt_page_id',  $_POST[ 'ewm_wrchatgpt_page_id' ] , false );
-    $ewm_wrchatgpt_group_list = get_post_meta( $_post_d[0]->ID , 'ewm_wrchatgpt_group_list', true );
-    $wr_gpt_group = get_posts([
-        'post_type' => 'wr_gpt_group',
-        'post_parent' => $review_main_post,
-        'post_status' => 'active',
-    ]);
-    $ewm_wrchatgpt_group_arr = explode( ',', $ewm_wrchatgpt_group_list );
-    // echo 'schedule:<br><br>';
-    foreach( $ewm_wrchatgpt_group_arr as $g_key => $g_value ){
-
-        $gpt_wp_group_child_list = get_posts( [
-            'post_type' => 'gpt_group_item',
-            'post_status' => 'active',
-            'post_parent' => $g_value
-        ] );
-
-        // echo count( $gpt_wp_group_child_list ) . '<br><br>';
-        // array(2) { [0]=> object(WP_Post)#1286 (24) { ["ID"]=> int(3644) ["post_author"]=> string(1) "2" ["post_date"]=> string(19) "2023-09-01 16:20:45" ["post_date_gmt"]=> string(19) "2023-09-01 16:20:45" ["post_content"]=> string(0) "" ["post_title"]=> string(10) "title name" ["post_excerpt"]=> string(0) "" ["post_status"]=> string(6) "active" ["comment_status"]=> string(6) "closed" ["ping_status"]=> string(6) "closed" ["post_password"]=> string(0) "" ["post_name"]=> string(10) "title-name" ["to_ping"]=> string(0) "" ["pinged"]=> string(0) "" ["post_modified"]=> string(19) "2023-09-01 16:20:45" ["post_modified_gmt"]=> string(19) "2023-09-01 16:20:45" ["post_content_filtered"]=> string(0) "" ["post_parent"]=> int(3629) ["guid"]=> string(29) "http://workshop-1.com/?p=3644" ["menu_order"]=> int(0) ["post_type"]=> string(14) "gpt_group_item" ["post_mime_type"]=> string(0) "" ["comment_count"]=> string(1) "0" ["filter"]=> string(3) "raw" } [1]=> object(WP_Post)#1315 (24) { ["ID"]=> int(3630) ["post_author"]=> string(1) "2" ["post_date"]=> string(19) "2023-08-24 06:42:49" ["post_date_gmt"]=> string(19) "2023-08-24 06:42:49" ["post_content"]=> string(0) "" ["post_title"]=> string(5) "title" ["post_excerpt"]=> string(0) "" ["post_status"]=> string(6) "active" ["comment_status"]=> string(6) "closed" ["ping_status"]=> string(6) "closed" ["post_password"]=> string(0) "" ["post_name"]=> string(5) "title" ["to_ping"]=> string(0) "" ["pinged"]=> string(0) "" ["post_modified"]=> string(19) "2023-08-24 06:42:49" ["post_modified_gmt"]=> string(19) "2023-08-24 06:42:49" ["post_content_filtered"]=> string(0) "" ["post_parent"]=> int(3629) ["guid"]=> string(29) "http://workshop-1.com/?p=3630" ["menu_order"]=> int(0) ["post_type"]=> string(14) "gpt_group_item" ["post_mime_type"]=> string(0) "" ["comment_count"]=> string(1) "0" ["filter"]=> string(3) "raw" } }
-        foreach( $gpt_wp_group_child_list as $wp_key => $wp_value ) { // var_dump( get_post_meta(  $wp_value->ID ) ); // echo '<br><br><br>'; // var_dump( $gpt_wp_footer_list );
-            /*
-                $details_id =  ewm_wr_generate_new_chatgpt( [
-                    'gen_id' => $wp_value->ID ,
-                    'gen_main_post' => $review_main_post
-                ] );
-                echo $details_id . '<br><br>';
-            */
-    /*    }
-
-    }
-
-}
-
-/*
-function gpt_footer_data_d(){
-
-    // $gtpt_ll = [ 4612, 4613, 4614, 4615, 4616, 4617, 4618, 4619 ];
-    foreach( $gtpt_ll as $dd_k => $dd_v ){
-
-        var_dump( get_post( $dd_v ) );
-        echo '<br><br>';
-
-        var_dump( get_post_meta( $dd_v ) );
-        echo '<br><br>';
-
-        /*
-        array(8) {
-            ["group_parent_id"]=> array(1) { [0]=> string(4) "3651" } 
-            ["ewm_wr_gpt_review_title"]=> array(1) { [0]=> string(10) "title name" } 
-            ["ewm_wr_gpt_customer_name"]=> array(1) { [0]=> string(8) "customer" } 
-            ["ewm_wr_gpt_rating"]=> array(1) { [0]=> string(1) "4" } 
-            ["ewm_wr_gpt_address"]=> array(1) { [0]=> string(6) "street" } 
-            ["ewm_wr_gpt_category"]=> array(1) { [0]=> string(7) "Cooling" } 
-            ["ewm_wr_gpt_job_description"]=> array(1) { [0]=> string(4) "job " } 
-            ["ewm_wr_gpt_team_member"]=> array(1) { [0]=> string(4) "team" } 
-        } 
-        */
-/*
-    }
-
-}
-/*
-function gpt_footer_data_pp(){ // var_dump( get_post_meta( 4714 ) );
-    $post_value_ID = 4748;
-    $post_meta_d = get_post_meta( $post_value_ID ) ;
-    var_dump( $post_meta_d );
-}*/
-
 add_action( 'wp_footer', 'gpt_run_outstanding_schedule' );
-
-function gpt_dd_tt_ll(){
-    var_dump( get_post_meta( 5391 ) );
-}
-
-add_action( 'wp_footer', 'gpt_dd_tt_ll' );
-
-/*
-function ewm_wr_ff_ajax(){
-
-    echo `
-    var ewm_wr_load_gpt_scheduler = function(){
-
-        var form_data = new FormData();
-        form_data.append( 'action' , 'gpt_run_outstanding_schedule' );
-
-        jQuery.ajax( {
-
-            url: ajax_object.ajaxurl,
-            type: 'post',
-            contentType: false,
-            processData: false,
-            data: form_data,
-            success: function ( response ) {
-                response = JSON.parse(response) ;
-            },
-            error: function (response) {
-                console.log( response ) ;
-            }
-
-        } );
-
-    }
-
-    ewm_wr_load_gpt_scheduler();
-
-    `;
-
-}
-*/
 
 ?>

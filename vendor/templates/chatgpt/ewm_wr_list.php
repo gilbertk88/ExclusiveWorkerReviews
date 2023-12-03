@@ -56,7 +56,7 @@ $ewm_wr_is_active = get_posts( [
 
     <div class="ewm_settings_b_t">
         <input type="button" id="ewm_review_settings_chatgpt" class="ewm_review_settings_chatgpt" value="ChatGPT Settings">
-        <input type="button" id="ewm_new_review_page" class="ewm_review_settings_chatgpt_new" value="Add New ChatGPT Page">
+        <input type="button" id="ewm_new_review_page" class="ewm_review_settings_chatgpt_new" value="Add New Worker Review Page">
     </div>
 	<!-- <input type="button" id="ewm_review_gen_chatgpt" class="ewm_review_gen_chatgpt" value="Generate for All Posts"> -->
     <div class="ewm_settings_b_title">

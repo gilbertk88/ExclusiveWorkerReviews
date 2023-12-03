@@ -609,14 +609,7 @@ jQuery(document).ready(function($) {
                 }
 
                 // Get the page
-                // $("#hl_display_page").html( '<a href="'+ response.guid + '" >' + response.post_title + ' </a>' ) ;
-
-                // $("#iframe_submit").attr( 'value', 'Save Changes' ) ;
-
-                // $("#hl_update_progress").html('Saving successful!');
-
-                // $(".wt_dark_background_company" ).hide() ;
-
+                
             },
 
             error: function (response) {
@@ -858,10 +851,10 @@ jQuery(document).ready(function($) {
 
         var form_data = new FormData();
 
-        form_data.append( 'action' , 'ewm_wr_update_chatgpt_request' ); // form_data.append( 'ewm_wr_chatgpt_quote' , $("#ewm_wr_chatgpt_quote").val() );
+        form_data.append( 'action' , 'ewm_wr_update_chatgpt_request' ); // 
         
         form_data.append( 'ewm_wr_chatgpt_daily' , data_list.daily_past_reviews );
-        form_data.append( 'ewm_wr_chatgpt_instant' , data_list.ewm_wr_chatgpt_instant ); // form_data.append( 'ewm_wr_chatgpt_number_of_reviews' , data_list.Number_of_Reviews );
+        form_data.append( 'ewm_wr_chatgpt_instant' , data_list.ewm_wr_chatgpt_instant ); //
         form_data.append( 'ewm_wrchatgpt_page_id' , $("#ewm_wrchatgpt_page_id").val() );
         form_data.append( 'ewm_wrchatgpt_search_id' , $("#ewm_wrchatgpt_search_id").val() );
         form_data.append( 'ewm_wrchatgpt_group_list' , data_list.group_list );
@@ -985,11 +978,8 @@ jQuery(document).ready(function($) {
             processData: false,
             data: form_data,
             success: function ( response ) {
-                // console.log( response );
-                //$('#ewm_search_post_id').val( response.search_post_id );
                 response = JSON.parse( response ) ; 
                 ewm_wr_update_cities( response.gpt_city_list );
-                // gpt_city_list
                 $('#ewm_wr_chatgpt_city').val( response.city_before_edit );
 
                 console.log( response );
@@ -1029,13 +1019,6 @@ jQuery(document).ready(function($) {
 
         ewm_looks_good = true ;
 
-        /*
-            if( $("#ewm_wr_chatgpt_number_of_reviews").val().length == '0' ){
-                ewm_looks_good = false;
-                $(".ewm_wr_chatgpt_number_of_reviews_message").html('Field required, please fill it up.');
-            } 
-        */
-
         if( ewm_looks_good == true ){
 
             $(".ewm_wr_chatgpt_number_of_reviews_message").html('');
@@ -1060,21 +1043,10 @@ jQuery(document).ready(function($) {
 
     var ewm_gpt_populate_group_append = function ( response_data ) {
         
-        // class_detail = $(".ewm_wr_chat_cat_inline"); // ob_len = class_detail.length
-        //class_detail.each(function(i, obj) {
-            // console.log( $( obj ).data('ewm_group_id') ); // console.log( $( obj ).data('ewm_group_selected') );
-            // $( obj ).attr({'data-ewm_group_selected': 0}); //,
-            // $( obj ).attr({'border' : '2px solid #fff'});
-        //} );
-        // ta-ewm_group_selected="0" // ata-ewm_group_id="4765" // Number of Reviews per Page * // alert('hallo world');
-
         console.log( response_data );
-        response_data.forEach( ( element ) => { // console.log( element );
+        response_data.forEach( ( element ) => {
             if( element.trim() !== '' ) {
-                trim_details =  element.trim(); // 
-                // console.log( 'element' ); 
-                // console.log( trim_details );
-                // $( "#ewm_wr_chat_cat_inline_"+trim_details ).click();
+                trim_details =  element.trim();
                 $( "#ewm_wr_chat_cat_inline_"+trim_details ).attr( 'data-ewm_group_selected',1 );
                 $( "#ewm_wr_chat_cat_inline_"+trim_details ).css('border','2px solid rgb(128, 128, 128)' );
                 
@@ -1124,8 +1096,8 @@ jQuery(document).ready(function($) {
             }
         } );
 
-    } // var ewm_load_group_selected = function( args = {} ) {}
-
+    } 
+    
     $('.ewm_manage_l_items_generate_chatgpt').click( function () {
 
         ewm_chatgpt_id = $( this ).data('ewm_chatgpt');
@@ -1179,11 +1151,7 @@ jQuery(document).ready(function($) {
 
         var form_data = new FormData();
         form_data.append( 'action' , 'ewm_wrchatgpt_generate_worker_review_button' );
-        // form_data.append( 'ewm_wr_chatgpt_quote' , $("#ewm_wr_chatgpt_quote").val() );
-        // form_data.append( 'ewm_wr_chatgpt_delete' , $("#ewm_wr_chatgpt_delete").val() );
-        // form_data.append( 'ewm_wr_chatgpt_number_of_reviews' , $("#ewm_wr_chatgpt_number_of_reviews").val() );
-        // form_data.append( 'ewm_wrchatgpt_page_id' , $("#ewm_wrchatgpt_page_id").val() );
-
+    
         jQuery.ajax( {
             url: ajax_object.ajaxurl,
             type: 'post',
@@ -1233,7 +1201,7 @@ jQuery(document).ready(function($) {
 
     }
     
-    var ewm_new_group_names = function(){ // $('ewm_wr_chat_cat_inline')
+    var ewm_new_group_names = function(){ //
 
         ewm__group_id = $( '#ewm_wrchatgpt_group_id' ).val();
         ewm_group_name__ = $('.ewm_wr_group_name_title').val();
@@ -1261,17 +1229,18 @@ jQuery(document).ready(function($) {
 
         $('#ewm_wr_group_is_new').val('none');
 
+        $('.ewm_wr_chat_cat_inline').unbind("click");
 
         $('.ewm_wr_chat_cat_inline').click( function () {
 
-            var ewm_group_selected = $( this ).data('ewm_group_selected'); // console.log( typeof ewm_group_selected )
+            var ewm_group_selected = $( this ).data('ewm_group_selected'); // 
             if( ewm_group_selected == 0 ){
                 $( this ).data( 'ewm_group_selected',1 );
-                $( this ).css({ 'border':'2px solid #333' }); // console.log( 'ewm_group_selected_true' );
+                $( this ).css({ 'border':'2px solid #333' }); //
             }
             else if(  ewm_group_selected == 1 ){
                 $( this ).data( 'ewm_group_selected' , 0 );
-                $( this ).css({ 'border':'0px solid #333' }); // console.log( 'ewm_group_selected_false' );
+                $( this ).css({ 'border':'2px solid rgb(225, 224, 224)' }); // 
             }
 
         } );
@@ -1301,12 +1270,9 @@ jQuery(document).ready(function($) {
             processData: false,
             data: form_data,
             success: function ( response ) {
-                // console.log( response ) ;
                 response = JSON.parse(response) ;
                 $('#ewm_wrchatgpt_group_id').val( response.new_gpt_group_id );
-                // console.log( response.new_gpt_group_id );
-                // console.log( 'group id' );
-                // console.log( $( '#ewm_wrchatgpt_group_id' ).val() );
+                
             },
             error: function (response) {
                 console.log( response ) ;
@@ -1347,9 +1313,9 @@ jQuery(document).ready(function($) {
 
     var ewm_wrchatgpt_list_item_group_data = function( list ){
 
-        $('.ewm_wr_edit_area_left').html('') ; // console.log( list ); //list.each(function(i, obj) {        //test  //});
-
-        for ( let x in list ) { // console.log(x + ": "+ list[x])
+        $('.ewm_wr_edit_area_left').html('') ; // 
+        
+        for ( let x in list ) { //
             $('.ewm_wr_edit_area_left').append(
             '<div class="ewm_wr_single_line_list_item ewm_wr_group_wrap_g_item_'+ list[x].ID +'">\
                 <span class="ewm_wr_group_single_g_item_'+ list[x].ID +'">'+ list[x].post_title +' </span> \
@@ -1372,7 +1338,7 @@ jQuery(document).ready(function($) {
             contentType: false,
             processData: false,
             data: form_data,
-            success: function ( response ) { // console.log( response );
+            success: function ( response ) { // 
                 response = JSON.parse(response) ;
 
                 ewm_wrchatgpt_list_item_group_data( response.ewm_post_data );
@@ -1496,8 +1462,7 @@ jQuery(document).ready(function($) {
             contentType: false,
             processData: false,
             data: form_data,
-            success: function ( response ) { // console.log( response );
-
+            success: function ( response ) { //
                 response = JSON.parse(response) ;
                 $("#ewm_wr_gpt_review_title").val( response.ewm_wr_gpt_review_title );
                 $("#ewm_wr_gpt_customer_name").val( response.ewm_wr_gpt_customer_name );
@@ -1521,7 +1486,7 @@ jQuery(document).ready(function($) {
 
             $('.ewm_wr_edit_area_left').css( { 'width': '40%' } );
             $('.ewm_wr_edit_area_right').css( { 'width': '50%' } );
-            $('.ewm_wr_edit_area_right').show(); // $('#ewm_wrchatgpt_group_item_id').val( $(this).val() );
+            $('.ewm_wr_edit_area_right').show(); // 
 
             ewm_wr_edit_single_g_item = $( this ).data( 'ewm_wr_edit_single_g_item' );
             $('#ewm_wrchatgpt_group_item_id').val( ewm_wr_edit_single_g_item );
@@ -1536,15 +1501,15 @@ jQuery(document).ready(function($) {
 
             var form_data = new FormData();
             form_data.append( 'action' , 'ewm_wr_delete_single_g_item' );
-            form_data.append( 'single_g_item_id', ewm_wr_delete_single_g_item_id ); // data-current_review_box
-
+            form_data.append( 'single_g_item_id', ewm_wr_delete_single_g_item_id ); // 
+            
             jQuery.ajax( {
                 url: ajax_object.ajaxurl,
                 type: 'post',
                 contentType: false,
                 processData: false,
                 data: form_data,
-                success: function ( response ) { // console.log( response );
+                success: function ( response ) { // 
                     response = JSON.parse(response) ;
                     $( ".ewm_wr_group_wrap_g_item_" + response.new_post_id ).remove(); //
                 },
@@ -1597,12 +1562,12 @@ jQuery(document).ready(function($) {
 
     } )
 
-    var gpt_populate_individual_reviews_list = function( args ) { // console.log( args );
+    var gpt_populate_individual_reviews_list = function( args ) { // 
 
         $("#gpt_ewm_r_review_title").val( args.review_title );
         $("#gpt_ewm_r_description").val( args.description );
         $("#gpt_ewm_r_customer_name").val( args.customer_name );
-        $("#gpt_ewm_r_review_date").val( args.ewm_r_review_date ); // $("#ewm_r_star_rating").val( args.star_rating );
+        $("#gpt_ewm_r_review_date").val( args.ewm_r_review_date ); //
         
         args.star_rating = args.star_rating * 2;
         star_rating = args.star_rating / 2 ;
@@ -1620,13 +1585,12 @@ jQuery(document).ready(function($) {
         } )
 
         $("#gpt_ewm_r_review_address").val( args.address ); // 
-        $("#gpt_ewm_r_street_address").val( args.review_place ); // $("#gpt_ewm_r_street_address").val( args. );
+        $("#gpt_ewm_r_street_address").val( args.review_place ); // 
         $("#gpt_ewm_r_address_city").val( args.city );
         $("#gpt_ewm_r_address_state").val( args.state );
         $("#gpt_ewm_r_address_zip").val( args.zip );
         $("#gpt_ewm_r_address_country").val( args.country );
-        $("#gpt_ewm_r_job_description").val( args.job_description ); // $("#ewm_r_star_rating").val( args.star_rating );
-        // $("#ratingOne").html( '<center>' + args.star_rating + "</center>" );
+        $("#gpt_ewm_r_job_description").val( args.job_description ); // 
         $("#gpt_ewm_r_team_member").val(  args.worker_name );
         $("#gpt_ewm_wr_category_dropdown").val( args.review_categories );
         $("#gpt_ewm_wr_img_file").prop( 'href', args.ewm_wr_img_file_url );
@@ -1649,12 +1613,12 @@ jQuery(document).ready(function($) {
     }
     droppedFiles_ewm();
 
-    var gpt_populate_review_form_fields = function( args = {} ) { // args.review_id
+    var gpt_populate_review_form_fields = function( args = {} ) { // 
 
         var form_data = new FormData();
 
         form_data.append( 'action' , 'gpt_populate_review_form_fields' );
-        form_data.append( 'review_id', args.review_id ); // data-current_review_box
+        form_data.append( 'review_id', args.review_id ); // 
 
         jQuery.ajax( {
             url: ajax_object.ajaxurl,
@@ -1662,7 +1626,7 @@ jQuery(document).ready(function($) {
             contentType: false,
             processData: false,
             data: form_data,
-            success: function ( response ) { // console.log( response );
+            success: function ( response ) { // 
                 response = JSON.parse(response) ;
                 gpt_populate_individual_reviews_list( response );
             },
@@ -1799,7 +1763,7 @@ jQuery(document).ready(function($) {
         $("#gpt_ewm_r_review_date").val('');
         $("#ewm_r_star_rating").val('0');
         $("#gpt_ewm_r_review_address").val(''); // 
-        $("#gpt_ewm_r_street_address").val(''); // $("#gpt_ewm_r_street_address").val( args. );
+        $("#gpt_ewm_r_street_address").val(''); //
         $("#gpt_ewm_r_address_city").val('');
         $("#gpt_ewm_r_address_state").val('');
         $("#gpt_ewm_r_address_zip").val('');
@@ -1808,10 +1772,7 @@ jQuery(document).ready(function($) {
         $("#ratingOne").html("");
         $("#gpt_ewm_r_team_member").val('');
         $("#gpt_ewm_wr_category_dropdown").val('');
-        $('#gpt_ewm_img_file_is_changed').val( 0 )
-        // $("#gpt_ewm_wr_img_file").prop( 'href', '' ); // args.ewm_wr_img_file_url ); 
-        // $('.gpt_ewm_wr_worker_review_img').html('');
-        // $('#gpt_ewm_wr_img_file').val('');
+        $('#gpt_ewm_img_file_is_changed').val( 0 );
 
     } );
 
@@ -1825,11 +1786,11 @@ jQuery(document).ready(function($) {
 
     var ewm_wr_edit_box = function(){
 
-        $('.ewm_wr_edit_box').click( function(){ // console.log('delete');
+        $('.ewm_wr_edit_box').click( function(){ // 
 
-            gpt_review_box = $( this ).data( 'current_review_box' ); // alert( gpt_review_box );
+            gpt_review_box = $( this ).data( 'current_review_box' ); // 
             $('#ewm_wrchatgpt_review_id').val( gpt_review_box );
-            $('.ewm_wrchatgpt_sr_edit_background_main ').show(); // $('#gpt_ewm_wr_new_file_exist').val('0');
+            $('.ewm_wrchatgpt_sr_edit_background_main ').show(); // 
             $( '#gpt_ewm_img_file_is_changed' ).val(0);
             $('#gpt_ewm_img_container').html( '<input name="gpt_ewm_wr_img_file" id="gpt_ewm_wr_img_file" placeholder="" type="file">' );
             droppedFiles_ewm();
@@ -1854,8 +1815,8 @@ jQuery(document).ready(function($) {
             contentType: false,
             processData: false,
             data: form_data,
-            success: function ( response ) { // console.log( response );
-                response = JSON.parse( response ); // var_dump( response ); // console.log( response ); // ewm_wr_load_review_l( response.review_list );
+            success: function ( response ) { //
+                response = JSON.parse( response ); //
                 ewm_wr_review_list_populate( response.review_list );
             },
             error: function (response) {
@@ -1867,14 +1828,14 @@ jQuery(document).ready(function($) {
 
     $('.ewm_wr_chat_cat_inline').click( function () {
 
-        var ewm_group_selected = $( this ).data('ewm_group_selected'); // console.log( typeof ewm_group_selected )
+        var ewm_group_selected = $( this ).data('ewm_group_selected'); //
         if( ewm_group_selected == 0 ){
             $( this ).data( 'ewm_group_selected',1 );
-            $( this ).css({ 'border':'2px solid #333' }); // console.log( 'ewm_group_selected_true' );
+            $( this ).css({ 'border':'2px solid #333' }); // 
         }
         else if(  ewm_group_selected == 1 ){
             $( this ).data( 'ewm_group_selected' , 0 );
-            $( this ).css({ 'border':'0px solid #333' }); // console.log( 'ewm_group_selected_false' );
+            $( this ).css({ 'border':'2px solid rgb(225, 224, 224)' }); // 
         }
 
     } );
@@ -1902,7 +1863,7 @@ jQuery(document).ready(function($) {
                 console.log( response.group_title );
                 // if doesn't exist > create new one
                 $( '#ewm_wr_chat_cat_inline_' + response.group_id ).html( response.group_title );
-                // $('#ewm_wrchatgpt_group_id').val( );
+                
             },
             error: function (response) {
                 console.log( response ) ;
@@ -2202,7 +2163,7 @@ jQuery(document).ready(function($) {
                 contentType: false,
                 processData: false,
                 data: form_data,
-                success: function ( response ) { // console.log( response ) ;
+                success: function ( response ) { //
                     response = JSON.parse( response ) ; // append to the latest reviews
                     $( '#ewm_wr_whold_box_' + current_review_box ).remove();
                 },
@@ -2226,7 +2187,7 @@ jQuery(document).ready(function($) {
 
         form_data.append( 'action' , 'ewm_r_add_update_review_details' ) ;
 
-        ewm_r_star_rating = range_details / 2 ; // $( '#ewm_r_star_rating' ).val()  / 2 ; // console.log( droppedFiles ) ;  // gpt_ewm_r_review_address // console.log( $( '#ewm_r_star_rating' ).val() );
+        ewm_r_star_rating = range_details / 2 ; //
 
         form_data.append( 'ewm_r_review_title' , $('#gpt_ewm_r_review_title').val() );
         form_data.append( 'ewm_r_description' , $('#gpt_ewm_r_description').val() );
@@ -2234,7 +2195,7 @@ jQuery(document).ready(function($) {
         form_data.append( 'ewm_r_review_date' , $('#gpt_ewm_r_review_date').val() );
         form_data.append( 'ewm_r_star_rating' , ewm_r_star_rating );
         form_data.append( 'ewm_r_review_place' , $('#gpt_ewm_r_street_address').val() );
-        form_data.append( 'ewm_r_address' , $('#gpt_ewm_r_review_address').val() ); // gpt_ewm_r_street_address // form_data.append( 'ewm_r_street_address' , $('#gpt_ewm_r_street_address').val() ); // gpt_ewm_r_street_address
+        form_data.append( 'ewm_r_address' , $('#gpt_ewm_r_review_address').val() ); // 
         form_data.append( 'ewm_r_address_city' , $('#gpt_ewm_r_address_city').val() );
         form_data.append( 'ewm_r_address_state' , $('#gpt_ewm_r_address_state').val() );
         form_data.append( 'ewm_r_address_zip' , $('#gpt_ewm_r_address_zip').val() );
@@ -2257,19 +2218,9 @@ jQuery(document).ready(function($) {
             success: function ( response ) {
                 
                 response = JSON.parse( response ) ;
-                // console.log( response.details );
-                // append to the latest reviews   // hide loading
-                // $('#ewm_wr_notification_pop_up').show() ;
-                // $('#ewm_wr_notification_pop_up_message').html( 'Congratulations! The review was successfully added<br><br><input type="submit" id="ewm_wr_notification_pop_up_message_ok" value="Okay">' );
-
-                //$('#ewm_wr_notification_pop_up_message_ok').click(function () {
-                //    $('#ewm_wr_notification_pop_up').hide();
-                //    $('#ewm_wr_notification_pop_up_message').html('');
-                //} )
+               
                 $('#ewm_submit_worker_review').val( 'Submit Review' ); // ewm_wr_clear_fields();
-                // $('.ewm_r_review_list_container').prepend( ewm_wr_append_html( response.details.data ) );
-                // ewm_wr_img_file_url
-            
+                
                 $('.gpt_ewm_wr_worker_review_img').html( '<img src="' + response.details.data.ewm_wr_img_file_url + '" id="gpt_ewm_wr_worker_review_img_d" style="height: 80px;width: 100px;" height="80px">' );
 
             },
@@ -2284,27 +2235,25 @@ jQuery(document).ready(function($) {
 
     var ewm_wr_field_details = [];
 
-    // ewm_wr_field_details[0] = { 'name' :"gpt_ewm_wr_img_file" };
     ewm_wr_field_details[1] = { 'name' :"gpt_ewm_r_review_title" };
     ewm_wr_field_details[2] = { 'name' :"gpt_ewm_r_description" };
     ewm_wr_field_details[3] = { 'name' :"ewm_r_star_rating" };
     ewm_wr_field_details[4] = { 'name' :"gpt_ewm_r_review_address" };
-    ewm_wr_field_details[5] = { 'name' :"gpt_ewm_r_street_address" }; // ewm_wr_field_details[8] = { 'name' :"gpt_ewm_r_street_address2" };
+    ewm_wr_field_details[5] = { 'name' :"gpt_ewm_r_street_address" }; //
     ewm_wr_field_details[6] = { 'name' :"gpt_ewm_r_address_city" };
     ewm_wr_field_details[7] = { 'name' :"gpt_ewm_r_address_state" };
     ewm_wr_field_details[8] = { 'name' :"gpt_ewm_r_address_zip" };
     ewm_wr_field_details[9] = { 'name' :"gpt_ewm_r_address_country" };
     ewm_wr_field_details[10] = { 'name' :"gpt_ewm_r_job_description" };
     ewm_wr_field_details[11] = { 'name' :"gpt_ewm_r_team_member" };
-    // ewm_wr_field_details[12] = { 'name' :"gpt_ewm_wr_category_dropdown" };
 
     function ewm_wr_check_all_fields_are_added(){
 
         number_of_missing_required_fields = 0;
         ewm_wr_field_details.forEach( function( field , details ){
 
-            current_field_len = $( '#' + ewm_wr_field_details[details].name ).val().length ; // console.log( ewm_wr_field_details[details].name ); //console.log( $( '#' + ewm_wr_field_details[details].name ).val() );
-            if( current_field_len == 0 ){ // console.log( ewm_wr_field_details[details].name ); // console.log( $( '#' + ewm_wr_field_details[details].name ).val() );
+            current_field_len = $( '#' + ewm_wr_field_details[details].name ).val().length ; 
+            if( current_field_len == 0 ){ 
                 // Change the border colors
                 $( '#' + ewm_wr_field_details[details].name ).css( 'border' , '1px solid darkred' );
                 // Add text message
@@ -2312,7 +2261,7 @@ jQuery(document).ready(function($) {
                 number_of_missing_required_fields++;
             }
 
-        } ); // console.log( number_of_missing_required_fields );
+        } ); 
 
         if( number_of_missing_required_fields === 0 ){ // Send data to server
             ewm_wr_send_data_to_server();

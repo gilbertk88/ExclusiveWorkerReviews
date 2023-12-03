@@ -42,7 +42,7 @@ function ewm_wrchatgpt_del_city(){
 // add_shortcode('ewm_access_chatgpt', 'ewm_access_chatgpt');
 function ewm_access_image_chat( $args = [] ){
 
-    $yourApiKey = get_option( 'ewm_gpt_api_key' ) ; // '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'; // getenv('YOUR_API_KEY');
+    $yourApiKey = get_option( 'ewm_gpt_api_key' ) ;
     $client = OpenAI::client( $yourApiKey );
 
     if( array_key_exists( 'ewm_keyword', $args ) ) {
@@ -61,15 +61,14 @@ function ewm_access_image_chat( $args = [] ){
         'response_format' => 'url',
     ] );
     
-    $response->created; // 1589478378
+    $response->created;
     
     foreach ($response->data as $data) {
-        $data->url; // 'https://oaidalleapiprodscus.blob.core.windows.net/private/...'
-        $data->b64_json; // null
+        $data->url; 
+        $data->b64_json;
     }
     
-    $final_Results = $response->toArray(); /// 
-    // return $final_Results["data"][0]["url"] ; // var_dump( $final_Results["data"][0]["url"] );
+    $final_Results = $response->toArray();
     $gpt_img_detail_url = $final_Results["data"][0]["url"] ;
 
     $gpt_img_detail_id = gpt_process_thumbnail_image([

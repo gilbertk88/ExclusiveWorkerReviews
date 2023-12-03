@@ -49,6 +49,6 @@ License
 This plugin is licensed under the MIT License.
 Author
 
-HVAC Content Generator Plugin is developed and maintained by Exclusive Worker Review. Connect with us at gilbertkarogo@gmail.com.
+HVAC Content Generator Plugin is developed and maintained by Exclusive Worker Review. Connect with us dean@exclusivewebmarketing.com.
 
 Thank you for choosing the HVAC Content Generator Plugin. We hope it elevates your online presence and boosts your SEO efforts for HVAC services!

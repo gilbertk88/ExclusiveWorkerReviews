@@ -122,14 +122,7 @@ function ewm_is_daily_reschedule( $args = [] ) {
 }
 
 function ewm_get_city_details_based_on( $args = [] ){
-/*
-    $gpt_new_city = get_posts( [
-		'post_type' => 'gpt_new_city',
-		'post_status' => 'active',
-		'post_parent' => $args['ewm_wr_main_review_page'],
-        'fields' => 'ids'
-	] );
-*/
+
     $gpt_main_review_id = $args['ewm_wr_main_review_page'] ;
 
     $gpt_new_citys_id = get_post_meta( $gpt_main_review_id , 'ewm_wr_chatgpt_city' , true );
@@ -138,7 +131,6 @@ function ewm_get_city_details_based_on( $args = [] ){
 
     $gpt_new_city_arr = [];
 
-    //if( $gpt_new_citys_id > 0 ) {
         $gpt_new_city_arr['id'] = $gpt_new_citys_id ;
         $gpt_new_city_arr['ewm_r_address_city'] = get_post_meta( $gpt_new_citys_id , 'ewm_r_address_city', true );
 		$gpt_new_city_arr['ewm_r_address_state'] = get_post_meta( $gpt_new_citys_id , 'ewm_r_address_state', true );
@@ -157,7 +149,6 @@ function ewm_get_city_details_based_on( $args = [] ){
 		$gpt_new_city_arr['ewm_r_address_country'] = ( is_string( $gpt_new_city_arr['ewm_r_address_country'] ) && strlen( $gpt_new_city_arr['ewm_r_address_country'] ) > 0 ) ? $gpt_new_city_arr['ewm_r_address_country'] : ' -- ' ;
 		$gpt_new_city_arr['ewm_wr_button_new_city_item'] = ( is_string( $gpt_new_city_arr['ewm_wr_button_new_city_item'] ) && strlen( $gpt_new_city_arr['ewm_wr_button_new_city_item'] ) > 0 ) ? $gpt_new_city_arr['ewm_wr_button_new_city_item'] : ' -- ';
         $gpt_new_city_arr['ewm_r_street_address'] = ( is_string( $gpt_new_city_arr['ewm_r_street_address'] ) && strlen( $gpt_new_city_arr['ewm_r_street_address'] ) > 0 ) ? $gpt_new_city_arr['ewm_r_street_address'] : ' -- ';
-    // }
 
     return $gpt_new_city_arr;
 
@@ -178,15 +169,6 @@ function ewm_add_gpt_worker_review( $args_schedule = [] ){
     $ewm_wr_gpt_nextfire = get_post_meta( $args_schedule['id'], 'ewm_wrgpt_nextfire' , true );
     $instant = get_post_meta( $args_schedule['id'], 'ewm_wr_chatgpt_instant' , true );
     $ewm_r_description = ewm_access_chatgpt( ['ewm_keyword' => $ewm_wr_gpt_review_title ] );
-
-    /*
-    $ewm_get_city_det[ 'ewm_r_review_place' ];
-    $ewm_get_city_det[ 'ewm_r_address_city' ];
-    $ewm_get_city_det[ 'ewm_r_street_address' ];
-    $ewm_get_city_det[ 'ewm_r_address_state' ];
-    $ewm_get_city_det[ 'ewm_r_address_zip' ];
-    $ewm_get_city_det[ 'ewm_r_address_country' ];
-    */
 
     $ewm_get_city_det = ewm_get_city_details_based_on( [
         'ewm_wr_main_review_page' => $group_parent_id
@@ -226,9 +208,6 @@ function ewm_add_gpt_worker_review( $args_schedule = [] ){
     ] ;
 
     // get meta values
-    // $ewm_meta_d = get_post_meta( $args_schedule['id'] );
-    
-    // ewm_wr_process_image_file( $args );
     $ewm_wr_image_id = $ewm_wr_image_d['id'];
 
     $args['ewm_r_post_id'] = 0 ;
@@ -323,13 +302,11 @@ function ewm_process_single_schedule( $args = [] ){
     $ewm_wr_chatgpt_daily = get_post_meta( $ewm_wr_group_parent_id, 'ewm_wr_chatgpt_daily', true );
 
     if( $ewm_wr_chatgpt_daily == 'true' ){
-
         $args_id = $args['id'];
         $instant = 'true';
         $post_id = $ewm_wr_group_parent_id;
 
         ewm_wr_daily_update_single_schedule( $args_id, $instant, $post_id );
-
     }
 
     // Delete schedule
@@ -341,7 +318,7 @@ function ewm_delete_ending_schedules(){
 
     $wrgpt_schedule = get_posts( [
         'post_type' => 'wrgpt_schedule',
-        /*'post_status' => 'active', // 'post_parent' => $review_main_post , // main review page post
+        'post_status' => 'active', // 'post_parent' => $review_main_post , // main review page post
         'meta_query' => array(
             array(
                 'key'     => 'ewm_been_scheduled',
@@ -349,12 +326,14 @@ function ewm_delete_ending_schedules(){
                 'compare' => '==', // 'type' => 'DATETIME',
             ),
         ),
-        'posts_per_page'=> 2,*/
+        'posts_per_page'=> 2,
         'fields' => 'ids'
     ] );
 
     foreach( $wrgpt_schedule as $wrgpt_schedule_k => $wrgpt_schedule_v ){
+
         wp_delete_post(  $wrgpt_schedule_v, 'true' );
+
     }
 
 }
@@ -367,7 +346,6 @@ function gpt_run_outstanding_schedule(){ // $review_main_post = 224;
     $ewm_time = time();
 
     $wrgpt_schedule = get_posts( [
-
         'post_type' => 'wrgpt_schedule',
         'post_status' => 'active', // 'post_parent' => $review_main_post , // main review page post
         'meta_query' => array(
@@ -377,33 +355,20 @@ function gpt_run_outstanding_schedule(){ // $review_main_post = 224;
                 'compare' => '<=', // 'type' => 'DATETIME',
             ),
         ),
-        'posts_per_page'=> 1,
+        // 'posts_per_page'=> 1,
         'fields' => 'ids'
-
     ] );
 
     $count_wrgpt_schedule = count( $wrgpt_schedule );
-    //echo $count_wrgpt_schedule;
+
+    echo $count_wrgpt_schedule;
 
     foreach( $wrgpt_schedule as $wrgpt_schedule_k => $wrgpt_schedule_v ){
-        // var_dump( $wrgpt_schedule_v ); // var_dump( get_post_meta( $wrgpt_schedule_v ) ); // echo '<br><br><br>'; 
-        // var_dump( wp_delete_post( $wrgpt_schedule_v->ID ) ); // var_dump( $wrgpt_schedule_v ); // var_dump( get_post_meta( $wrgpt_schedule_v->ID ) );
         ewm_process_single_schedule( [
             'id' => $wrgpt_schedule_v
         ] );
-        // echo '<br><br>';
         
     }
-
-    /*
-        if( $count_wrgpt_schedule > 0 ) {
-            $wrg_v = $wrgpt_schedule[0]; // var_dump($wrg_v);
-            gpt_process_single_schedule( [
-                'schedule_id' => $wrg_v->ID,
-                'main_review_id' => '4707' // $wrg_v->post_parent,
-            ] );
-        }
-    */
 
 }
 
@@ -471,9 +436,7 @@ function ewm_wr_update_single_schedule( $args_id, $instant, $post_id ){
     $ewm_wr_gpt_team_member = $_gen_d['ewm_wr_gpt_team_member'][0];
     $is_daily = $instant; // ['ewm_wr_chatgpt_instant'] ;
     $ewm_wr_gpt_nextfire = time();
-    // $ewm_wr_gpt_nextfire_add = 60*60*24;
-    // $ewm_wr_gpt_nextfire = $ewm_wr_gpt_nextfire + $ewm_wr_gpt_nextfire_add ;
-
+    
     $new_post_list_meta = [
         'group_parent_id' => $group_parent_id,
         'group_id' => $group_id,
@@ -591,7 +554,6 @@ function ewm_wr_input_api_key_save(){
     }
 
     echo json_encode( [
-        // 'ewm_gpt_api_key' => $ewm_gpt_api_key,
         'post' => $_POST
     ] );
     
@@ -602,7 +564,6 @@ function ewm_wr_input_api_key_save(){
 function gpt_log_update_schedule( $args = [] ) {
 
     foreach( $args as $key => $val ) {
-        // var_dump( get_post_meta( $val->ID, 'ewm_event_time' ) );
         $ewm_event_time = current_time( 'timestamp' );
         update_post_meta( $val->ID, 'ewm_event_time', $ewm_event_time );
     }

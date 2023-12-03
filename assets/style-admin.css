@@ -994,7 +994,7 @@ input[type=range]::-webkit-slider-thumb:active {
 .ewm_wr_shortcode{
   list-style-type: disc;
   background: #8EFE8D;
-  padding: 10px;
+  padding: 5px 10px;
   font-size: 16px;
   border-radius: 3px;
 }
